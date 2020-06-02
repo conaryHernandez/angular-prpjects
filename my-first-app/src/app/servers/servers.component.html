@@ -1,7 +1,5 @@
 <h3>Server Component</h3>
 
-<input type="text" class="form-control" (input)="onUpdateServerName($event)" />
-
 <input type="text" class="form-control" [(ngModel)]="serverName" />
 
 <button
@@ -11,6 +9,22 @@
 >
   Add Server
 </button>
-<p>Name: {{ serverName }}</p>
+
+<p *ngIf="serverCreated; else noServer">Name: {{ serverName }}</p>
+<ng-template #noServer>
+  <p>No server was created!</p>
+</ng-template>
 <p>Permissions: {{ allowNewServer }}</p>
 <p>Status: {{ serverCreationStatus }}</p>
+
+<input type="text" class="form-control" [(ngModel)]="username" />
+
+<button
+  (click)="onResetUsername()"
+  class="btn btn-primary"
+  [disabled]="!username"
+>
+  Reset User
+</button>
+
+<p>Username: {{ username }}</p>
