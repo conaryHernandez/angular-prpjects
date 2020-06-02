@@ -13,6 +13,9 @@ export class ServersComponent implements OnInit {
   serverName = 'test';
   username = '';
   serverCreated = false;
+  servers = ['server1', 'server2'];
+  showDetails = false;
+  detailsLog = [];
 
   constructor() {
     setTimeout(() => {
@@ -25,6 +28,7 @@ export class ServersComponent implements OnInit {
   onCreateServer() {
     this.serverCreated = true;
     this.serverCreationStatus = 'Server was created! ' + this.serverName;
+    this.servers.push(this.serverName);
   }
 
   onUpdateServerName(event) {
@@ -33,5 +37,14 @@ export class ServersComponent implements OnInit {
 
   onResetUsername() {
     this.username = '';
+  }
+
+  toggleDetails() {
+    this.addDetailsLog();
+    return (this.showDetails = !this.showDetails);
+  }
+
+  addDetailsLog() {
+    return this.detailsLog.push(new Date().toISOString());
   }
 }

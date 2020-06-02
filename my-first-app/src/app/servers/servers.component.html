@@ -28,3 +28,17 @@
 </button>
 
 <p>Username: {{ username }}</p>
+
+<app-server *ngFor="let server of servers"> </app-server>
+
+<button class="btn btn-primary" (click)="toggleDetails()">Show details</button>
+
+<p *ngIf="showDetails">Secret Password</p>
+
+<p *ngFor="let log of detailsLog; let i = index">
+  <a
+    [ngStyle]="{ color: i >= 4 ? 'white' : 'black' }"
+    [ngClass]="{ high: i >= 4 }"
+    >{{ log }}</a
+  >
+</p>
