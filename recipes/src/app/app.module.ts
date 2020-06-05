@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // <- TypeScript import
 
 import { AppComponent } from './app.component';
 import { Header } from './header/header.component';
@@ -21,7 +22,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
     ShoppingListComponent,
     ShoppingEditComponent,
   ],
-  imports: [BrowserModule],
+  imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
