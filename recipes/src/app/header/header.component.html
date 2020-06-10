@@ -17,24 +17,24 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li>
-          <a href="#" (click)="onSelect('recipe')">Recipes</a>
+        <li routerLinkActive="active">
+          <a routerLink="/recipes">Recipes</a>
         </li>
-        <li>
-          <a href="#" (click)="onSelect('shopping-list')">Shopping List</a>
+        <li routerLinkActive="active">
+          <a routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li appDropdown class="dropdown">
-          <a href="#" class="dropdown-toggle"
+          <a routerLink="" class="dropdown-toggle"
             >Manage <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#">Save Data</a>
+              <a routerLink="/">Save Data</a>
             </li>
             <li>
-              <a href="#">Fetch Data</a>
+              <a routerLink="/">Fetch Data</a>
             </li>
           </ul>
         </li>
