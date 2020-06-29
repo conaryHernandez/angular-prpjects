@@ -5,7 +5,7 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
@@ -30,7 +30,7 @@ export class RecipeService {
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
 
-    console.log(' this.recipes', this.recipes);
+    console.log('this.recipes', this.recipes.slice());
 
     this.recipesChanged.next(this.recipes.slice());
   }

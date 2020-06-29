@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.postsService.error.subscribe((errorMessage) => {
+    this.errorSub = this.postsService.error.subscribe((errorMessage) => {
       this.error = errorMessage;
     });
   }
