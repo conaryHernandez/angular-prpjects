@@ -1,39 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <- TypeScript import
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms'; // <- TypeScript import
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { Header } from './header/header.component';
-import { AuthComponent } from './auth/auth.component';
 
-import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { AlertComponent } from './shared/alert/alert.component';
 import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent, Header, AuthComponent],
+  declarations: [AppComponent, Header],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     RecipesModule,
     ShoppingListModule,
     SharedModule,
-  ],
-  providers: [
-    ShoppingListService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
-    },
+    CoreModule,
+    AuthModule,
   ],
   bootstrap: [AppComponent],
 })
