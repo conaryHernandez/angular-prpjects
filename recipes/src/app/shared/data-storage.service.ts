@@ -7,11 +7,7 @@ import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class DatStorageService {
-  constructor(
-    private http: HttpClient,
-    private recipeService: RecipeService,
-    private authService: AuthService
-  ) {}
+  constructor(private http: HttpClient, private recipeService: RecipeService) {}
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -33,12 +29,16 @@ export class DatStorageService {
       )
       .pipe(
         map((recipes) => {
-          return recipes.map((recipe) => {
-            return {
-              ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : [],
-            };
-          });
+          if (recipes) {
+            return recipes.map((recipe) => {
+              return {
+                ...recipe,
+                ingredients: recipe.ingredients ? recipe.ingredients : [],
+              };
+            });
+          }
+
+          return [];
         }),
         tap((recipes) => {
           this.recipeService.setRecipes(recipes);
