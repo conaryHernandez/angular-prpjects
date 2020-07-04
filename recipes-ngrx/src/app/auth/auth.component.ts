@@ -3,11 +3,16 @@ import {
   ComponentFactoryResolver,
   ViewChild,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponseData } from './auth.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
+
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 
@@ -15,7 +20,7 @@ import { PlaceholderDirective } from '../shared/placeholder/placeholder.directiv
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent implements OnDestroy {
+export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
@@ -26,8 +31,16 @@ export class AuthComponent implements OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<fromApp.AppState>
   ) {}
+
+  ngOnInit() {
+    this.store.select('auth').subscribe((authState) => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+    });
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -67,12 +80,14 @@ export class AuthComponent implements OnDestroy {
     this.isLoading = true;
 
     if (this.isLoginMode) {
-      authObs = this.authService.login(email, password);
+      console.log('hiii');
+      this.store.dispatch(new AuthActions.LoginStart({ email, password }));
+      // authObs = this.authService.login(email, password);
     } else {
       authObs = this.authService.signup(email, password);
     }
 
-    authObs.subscribe(
+    /* authObs.subscribe(
       (resData) => {
         this.isLoading = false;
         this.router.navigate(['/recipes']);
@@ -84,7 +99,7 @@ export class AuthComponent implements OnDestroy {
 
         this.isLoading = false;
       }
-    );
+    ); */
 
     form.reset();
   }
