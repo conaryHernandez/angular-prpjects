@@ -33,6 +33,7 @@ export const authReducer = (
         loading: false,
       };
     case AuthActions.LOGIN_START:
+    case AuthActions.SIGNUP_START:
       return {
         ...state,
         authError: null,
@@ -49,6 +50,11 @@ export const authReducer = (
       return {
         ...state,
         user: null,
+      };
+    case AuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null,
       };
     default:
       return state;
