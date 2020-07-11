@@ -6,6 +6,7 @@ import {
   transition,
   animate,
   keyframes,
+  group,
 } from "@angular/animations";
 
 @Component({
@@ -121,13 +122,21 @@ import {
         ),
       ]),
       transition("* => void", [
-        animate(
-          300,
-          style({
-            opacity: 0,
-            transform: "translateX(100px)",
-          })
-        ),
+        group([
+          animate(
+            300,
+            style({
+              color: "red",
+            })
+          ),
+          animate(
+            300,
+            style({
+              opacity: 0,
+              transform: "translateX(100px)",
+            })
+          ),
+        ]),
       ]),
       // transition("highlighted => normal", animate(800)),
     ]),
@@ -164,5 +173,13 @@ export class AppComponent {
   onDelete(item) {
     let index = this.list.indexOf(item);
     this.list.splice(index, 1);
+  }
+
+  animationStarted(event) {
+    console.log(event);
+  }
+
+  animationEnded(event) {
+    console.log(event);
   }
 }
